@@ -1,4 +1,4 @@
-package com.codility.practice.seven.statch_queue;
+package com.codility.practice.seven.stack_queue;
 
 import java.util.Stack;
 
