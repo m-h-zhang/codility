@@ -15,10 +15,8 @@ public class Flags {
 			  return 0;
 		  }
 		  java.util.List<Integer> l = new ArrayList<>();
-		  if (A[0] > 0 && A[0] > A[1]) {
-			  l.add(0);
-		  }
-		  for (int i = 1; i < A.length; i++ ) {
+		  
+		  for (int i = 1; i < A.length -1; i++ ) {
 			  if ( A[i]> A[i-1] && A[i]> A[i+1]) {
 				  l.add(i);
 				  i++;				  
@@ -26,7 +24,7 @@ public class Flags {
 			  
 		  }
 		  if (l.size() < 2) {
-			  return 0;
+			  return l.size();
 		  }else {
 			  int gap = l.get(l.size() - 1) - l.get(0);			  
 			  
@@ -54,7 +52,7 @@ public class Flags {
 	    }
 	  
 	  public static void main(String arg[]) {
-		  System.out.println(new Flags().solution( new int[] { 3,2,1}));
+		  System.out.println(new Flags().solution( new int[] {1, 2, 3, 4, 5, 6}));
 		  //System.out.println(new Flags().solution( new int[] { 1,5,3,4, 3,4,1, 2, 3, 4, 6,2}));
 	  }
 	  
