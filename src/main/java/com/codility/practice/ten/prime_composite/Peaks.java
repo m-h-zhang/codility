@@ -14,44 +14,51 @@ public class Peaks {
 		  if (A.length <= 2) {
 			  return 0;
 		  }
-		  java.util.List<Integer> peakIndexs = new ArrayList<>();
+		  
+		  int peaksCurrent[] = new int[A.length];
+		  //java.util.List<Integer> l = new ArrayList<>();
+		  
 		  
 		  for (int i = 1; i < A.length -1; i++ ) {
+			  peaksCurrent[i] = peaksCurrent[i-1];
 			  if ( A[i]> A[i-1] && A[i]> A[i+1]) {
-				  peakIndexs.add(i);
-				  i++;				  
+				  peaksCurrent[i]++;		  
 			  }
 			  
 		  }
+		  peaksCurrent[peaksCurrent.length-1] = peaksCurrent[peaksCurrent.length-2];
 		  
 		  
-		  if (peakIndexs.size() < 2) {
-			  return peakIndexs.size();
+		  if (peaksCurrent[peaksCurrent.length-1] < 2) {
+			  return peaksCurrent[peaksCurrent.length-1];
 		  }else {
+			 // int peakNums = peaksCurrent[peaksCurrent.length-1];
 			  
-			   for (int size = 1; size <= A.length; size++) {
-				   if ( A.length % size == 0 ) {
-					   int blocks = A.length / size;
-					   int find = 0;
-					   boolean ok = true;
-					   for(int peakIdx : peakIndexs){
-					        if(peakIdx/size > find){
-					          ok = false;
-					          break;
-					        }
-					        if(peakIdx/size == find) {
-					        	find++;
-					        }
+			  
+			  for ( int blocks = A.length; blocks >=1; blocks--) {
+				  
+				  
+				  if ( A.length % blocks == 0) {
+					   boolean isGood = true;
+					   int size = A.length / blocks;
+					   
+					  
+					   
+					   for (int i = size; i < A.length ; i= i + size) {
+						   
+						   if ( peaksCurrent[i + size -1 ] == peaksCurrent[i -1]) {
+							  isGood = false;
+							  break;
+						   }
 					   }
-				      if(find != blocks) {
-				    	  ok = false;
-				      }
-				      if(ok) {
-				    	  return blocks;
-				      }
-				   }
-			   }
-			 
+					   
+					   if (isGood && peaksCurrent[size -1] > 0) {
+						   
+						   return blocks;
+					   }
+				  }
+				  
+			 }
 			  
 			  
 		  }
