@@ -1,8 +1,5 @@
 package com.codility.practice.twelve.euclidean;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class CommonPrimeDivisors {
 	
 	  public int solution(int[] A, int[] B) {
@@ -10,11 +7,18 @@ public class CommonPrimeDivisors {
 		 int count = 0;
 		  
 		  for ( int i = 0; i < A.length; i++) {
-			   Set<Integer> aPrimes = getPrimeFactors(A[i]);
-			   Set<Integer> bPrimes = getPrimeFactors(B[i]);
-			   if ( aPrimes.equals(bPrimes)) {
-				   count++;
-			   }
+			  
+			  int gcd = gcd(A[i],  B[i]);
+			  if (gcd > 1 ) {
+				  
+				  if ( gcd == A[i] ||    gcd(gcd, A[i]/gcd) == 1 ) {
+					  
+					  if ( gcd == B[i] ||   gcd(gcd, B[i]/gcd) == 1 ) {
+						  count++;
+					  }
+				  }					 
+					  
+			  }
 		  }
 		  
  
@@ -26,31 +30,14 @@ public class CommonPrimeDivisors {
 	   }
 	  
 	  
-	  public Set<Integer> getPrimeFactors(int N) {
+	  public int gcd(int N, int M) {
              
-		  Set<Integer> s  = new HashSet<>();
-		  int num  = N;
-		  if ( num % 2 == 0 ) {
-			  s.add(2);
-			  while ( num % 2 == 0) {
-				 
-				  num = num /2;
-			  }
+		  if ( N % M == 0) {
+			  return M;
+		  }else {
+			  return gcd(M, N%M);
 		  }
 		  
-		  for ( int i  = 3; i <= Math.sqrt( num); i = i + 2) {
-			  if ( num % i == 0) {
-				  s.add(i);
-				  while ( num % i == 0) {
-					  num = num / i;
-				  }
-			  }
-		  }
-		  if (num > 2) {
-			  s.add(num);
-		  }
-		  
-		  return s;
 	  }
 	  
 	   
